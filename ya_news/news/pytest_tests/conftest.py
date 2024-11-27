@@ -81,6 +81,7 @@ def multiple_comments_creation(news, author):
         comment.created = now + timedelta(days=index)
         comment.save()
 
+
 @pytest.fixture
 def form_data():
     return {'text': 'Новый текст'}
@@ -99,5 +100,3 @@ def comment_delete_url(news, id_for_args, comment):
 @pytest.fixture
 def comment_edit_url(news, id_for_args, comment):
     return reverse('news:edit', kwargs={'pk': comment.id})
-
-

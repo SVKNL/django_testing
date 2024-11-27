@@ -89,5 +89,3 @@ def test_author_can_edit_comment(news,
     assert response.status_code == HTTPStatus.NOT_FOUND
     comment.refresh_from_db()
     assert comment.text == 'Comment text'
-
-

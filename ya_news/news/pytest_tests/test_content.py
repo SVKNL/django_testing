@@ -47,6 +47,3 @@ def test_comment_creation_available_for_auth_user(news, not_author_client):
     response = not_author_client.get(url)
     assert 'form' in response.context
     assert isinstance(response.context['form'], CommentForm)
-
-
-
