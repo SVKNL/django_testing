@@ -11,6 +11,7 @@ def test_pagination_om_main(client, multiple_news_creation):
     news_on_main_number = response.context['object_list'].count()
     assert news_on_main_number == 10
 
+
 @pytest.mark.django_db
 def test_sorted_on_main(client, multiple_news_creation):
     url = reverse('news:home')
@@ -19,6 +20,7 @@ def test_sorted_on_main(client, multiple_news_creation):
     all_dates = [news.date for news in news_on_main]
     sorted_dates = sorted(all_dates, reverse=True)
     assert sorted_dates == all_dates
+
 
 @pytest.mark.django_db
 def test_comments_sorted(client, multiple_comments_creation, news):
@@ -31,11 +33,13 @@ def test_comments_sorted(client, multiple_comments_creation, news):
     sorted_timestamps = sorted(all_timestamps)
     assert all_timestamps == sorted_timestamps
 
+
 @pytest.mark.django_db
 def test_comment_creation_available_for_anon_user(news, client):
     url = reverse('news:detail', args=[news.id])
     response = client.get(url)
     assert 'form' not in response.context
+
 
 @pytest.mark.django_db
 def test_comment_creation_available_for_auth_user(news, not_author_client):
@@ -43,7 +47,6 @@ def test_comment_creation_available_for_auth_user(news, not_author_client):
     response = not_author_client.get(url)
     assert 'form' in response.context
     assert isinstance(response.context['form'], CommentForm)
-
 
 
 

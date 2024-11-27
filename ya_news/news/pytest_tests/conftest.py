@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-
 from django.urls import reverse
 from django.utils import timezone
 import pytest
@@ -42,18 +41,21 @@ def news():
     )
     return news
 
+
 @pytest.fixture
 def comment(author, news):
     comment = Comment.objects.create(
-        text = 'Comment text',
-        author = author,
-        news = news,
+        text='Comment text',
+        author=author,
+        news=news,
     )
     return comment
+
 
 @pytest.fixture
 def id_for_args(news):
     return (news.id,)
+
 
 @pytest.fixture
 def multiple_news_creation():
@@ -67,6 +69,7 @@ def multiple_news_creation():
         for index in range(settings.NEWS_COUNT_ON_HOME_PAGE + 1)
     ]
     News.objects.bulk_create(all_news)
+
 
 @pytest.fixture
 def multiple_comments_creation(news, author):
@@ -82,15 +85,19 @@ def multiple_comments_creation(news, author):
 def form_data():
     return {'text': 'Новый текст'}
 
+
 @pytest.fixture
 def news_detail_url(news, id_for_args):
     return reverse('news:detail', kwargs={'pk': news.id})
+
 
 @pytest.fixture
 def comment_delete_url(news, id_for_args, comment):
     return reverse('news:delete', kwargs={'pk': comment.id})
 
+
 @pytest.fixture
 def comment_edit_url(news, id_for_args, comment):
     return reverse('news:edit', kwargs={'pk': comment.id})
+
 

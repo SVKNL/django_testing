@@ -8,17 +8,22 @@ from pytest_django.asserts import assertRedirects
 
 @pytest.mark.django_db
 @pytest.mark.parametrize('name',
-    ('news:home', 'users:login', 'users:logout', 'users:signup'))
+                         ('news:home',
+                          'users:login',
+                          'users:logout',
+                          'users:signup'))
 def test_pages_availability_for_anonymous_user(client, name):
     url = reverse(name)
     response = client.get(url)
     assert response.status_code == HTTPStatus.OK
+
 
 @pytest.mark.django_db
 def test_news_availability_for_anonymous_user(client, news):
     url = reverse('news:detail', args=[news.id])
     response = client.get(url)
     assert response.status_code == HTTPStatus.OK
+
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
@@ -38,6 +43,7 @@ def test_pages_availability_for_different_users(
     url = reverse(name, args=(comment.id,))
     response = parametrized_client.get(url)
     assert response.status_code == expected_status
+
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(

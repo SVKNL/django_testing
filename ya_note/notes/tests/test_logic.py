@@ -8,11 +8,11 @@ from notes.models import Note
 
 User = get_user_model()
 
+
 class TestNoteCreation(TestCase):
 
     TITLE_TEXT = 'Title'
     TEXT_TEXT = 'Text'
-
 
     @classmethod
     def setUpTestData(cls):
@@ -51,6 +51,7 @@ class TestCommentEditDelete(TestCase):
     TEXT_TEXT = 'Note text'
     NEW_TITLE_TEXT = 'New note title'
     NEW_TEXT_TEXT = 'New note text'
+
     @classmethod
     def setUpTestData(cls):
         cls.author = User.objects.create(username='Note author')
@@ -65,7 +66,8 @@ class TestCommentEditDelete(TestCase):
         cls.reader_client.force_login(cls.reader)
         cls.edit_url = reverse('notes:edit', args=(cls.note.slug,))
         cls.delete_url = reverse('notes:delete', args=(cls.note.slug,))
-        cls.form_data = {'text': cls.NEW_TEXT_TEXT, 'title': cls.NEW_TITLE_TEXT}
+        cls.form_data = {'text': cls.NEW_TEXT_TEXT,
+                         'title': cls.NEW_TITLE_TEXT}
 
     def test_author_can_delete_comment(self):
 
