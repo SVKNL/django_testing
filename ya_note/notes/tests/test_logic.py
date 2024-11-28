@@ -3,7 +3,7 @@ from http import HTTPStatus
 from django.contrib.auth import get_user_model
 
 from notes.models import Note
-from .helpers import (NOTES_DELETE_URL,
+from notes.tests.helpers import (NOTES_DELETE_URL,
                       NOTES_SUCCESS_URL,
                       NOTES_EDIT_URL,
                       Helpers,

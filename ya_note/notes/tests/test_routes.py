@@ -2,17 +2,17 @@ from http import HTTPStatus
 
 from django.contrib.auth import get_user_model
 
-from .helpers import (NOTES_DELETE_URL,
-                      NOTES_SUCCESS_URL,
-                      NOTES_EDIT_URL,
-                      Helpers,
-                      NOTES_ADD_URL,
-                      NOTES_DETAIL_URL,
-                      NOTES_LIST_URL,
-                      USERS_LOGIN_URL,
-                      NOTES_HOME_URL,
-                      USERS_LOGOUT_URL,
-                      USERS_SIGNUP_URL)
+from notes.tests.helpers import (NOTES_DELETE_URL,
+                                 NOTES_SUCCESS_URL,
+                                 NOTES_EDIT_URL,
+                                 Helpers,
+                                 NOTES_ADD_URL,
+                                 NOTES_DETAIL_URL,
+                                 NOTES_LIST_URL,
+                                 USERS_LOGIN_URL,
+                                 NOTES_HOME_URL,
+                                 USERS_LOGOUT_URL,
+                                 USERS_SIGNUP_URL)
 
 User = get_user_model()
 
