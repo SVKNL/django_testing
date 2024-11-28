@@ -12,7 +12,9 @@ from notes.tests.helpers import (NOTES_DELETE_URL,
                                  USERS_LOGIN_URL,
                                  NOTES_HOME_URL,
                                  USERS_LOGOUT_URL,
-                                 USERS_SIGNUP_URL)
+                                 USERS_SIGNUP_URL,
+                                 redirect_login_url)
+
 
 User = get_user_model()
 
@@ -31,7 +33,7 @@ class TestRoutes(Helpers):
                  [NOTES_DELETE_URL, self.reader_client, HTTPStatus.NOT_FOUND],
                  [NOTES_ADD_URL, self.reader_client, HTTPStatus.OK], ]
         for url, client, status in cases:
-            with self.subTest(name=url):
+            with self.subTest(name=url, client=client, status=status):
                 response = client.get(url)
                 self.assertEqual(response.status_code, status)
 
@@ -42,6 +44,6 @@ class TestRoutes(Helpers):
                     NOTES_LIST_URL,
                     NOTES_SUCCESS_URL):
             with self.subTest(name=url):
-                redirect_url = f'{USERS_LOGIN_URL}?next={url}'
+                redirect_url = redirect_login_url(url)
                 response = self.client.get(url)
                 self.assertRedirects(response, redirect_url)

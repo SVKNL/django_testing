@@ -16,7 +16,12 @@ NOTES_HOME_URL = reverse('notes:home')
 USERS_LOGIN_URL = reverse('users:login')
 USERS_LOGOUT_URL = reverse('users:logout')
 USERS_SIGNUP_URL = reverse('users:signup')
+
 User = get_user_model()
+
+
+def redirect_login_url(url):
+    return f'{USERS_LOGIN_URL}?next={url}'
 
 
 class Helpers(TestCase):
@@ -38,4 +43,4 @@ class Helpers(TestCase):
         cls.author_client.force_login(cls.author)
         cls.reader_client = Client()
         cls.reader_client.force_login(cls.reader)
-        cls.client = Client()
+

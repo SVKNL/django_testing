@@ -7,19 +7,18 @@ from django.conf import settings
 from django.test.client import Client
 
 from news.models import News, Comment
-from news.forms import BAD_WORDS
 
-COMMENT_TEXT = 'Comment text'
-NEW_COMMENT_TEXT = 'New comment text'
-BAD_WORDS_COMMENT = f'bla-bla {BAD_WORDS[0]}'
-FORM_DATA = {'text': NEW_COMMENT_TEXT}
-BAD_WORDS_FORM_DATA = {'text': BAD_WORDS_COMMENT}
+FORM_DATA = {'text': 'new text'}
 
 
-@pytest.fixture()
-def client():
-    client = Client()
-    return client
+@pytest.fixture
+def login_edit_redirect(users_login, comment_edit_url):
+    return f'{users_login}?next={comment_edit_url}'
+
+
+@pytest.fixture
+def login_delete_redirect(users_login, comment_delete_url):
+    return f'{users_login}?next={comment_delete_url}'
 
 
 @pytest.fixture
@@ -59,7 +58,7 @@ def news():
 @pytest.fixture
 def comment(author, news):
     comment = Comment.objects.create(
-        text=COMMENT_TEXT,
+        text='text',
         author=author,
         news=news,
     )

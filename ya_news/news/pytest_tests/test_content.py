@@ -1,11 +1,15 @@
 import pytest
+
+from yanews.settings import NEWS_COUNT_ON_HOME_PAGE
+from news.forms import CommentForm
+
 pytestmark = pytest.mark.django_db
 
 
 def test_pagination_om_main(client, multiple_news, home_url):
     response = client.get(home_url)
     news_on_main_number = response.context['object_list'].count()
-    assert news_on_main_number == 10
+    assert news_on_main_number == NEWS_COUNT_ON_HOME_PAGE
 
 
 def test_sorted_on_main(client, multiple_news, home_url):
@@ -25,9 +29,9 @@ def test_comments_sorted(client, multiple_comments, news, news_detail_url):
     assert all_timestamps == sorted_timestamps
 
 
-def test_comment_creation_available_for_anon_user(news,
-                                                  client,
-                                                  news_detail_url):
+def test_comment_creation_unauth_user(news,
+                                      client,
+                                      news_detail_url):
     response = client.get(news_detail_url)
     assert 'form' not in response.context
 
@@ -36,6 +40,5 @@ def test_comment_creation_available_for_auth_user(news,
                                                   not_author_client,
                                                   news_detail_url):
     response = not_author_client.get(news_detail_url)
-    assert 'form' in response.context
     form_object = response.context.get('form')
-    assert form_object is not None
+    assert isinstance(form_object, CommentForm)

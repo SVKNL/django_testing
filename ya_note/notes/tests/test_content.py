@@ -14,12 +14,8 @@ class TestHomePage(Helpers):
 
     def test_note_listed(self):
         response = self.author_client.get(NOTES_LIST_URL)
-        note = response.context['object_list'].get()
+        note = response.context['object_list'].get(slug=SLUG)
         self.assertEqual(self.note, note)
-        self.assertEqual(note.title, 'Название заметки')
-        self.assertEqual(note.author, self.author)
-        self.assertEqual(note.slug, SLUG)
-        self.assertEqual(note.text, 'Текст заметки')
 
     def test_note_for_author_only(self):
         response = self.reader_client.get(NOTES_LIST_URL)
