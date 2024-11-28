@@ -5,7 +5,7 @@ from pytest_django.asserts import assertRedirects, assertFormError
 
 from news.forms import WARNING
 from news.models import Comment
-from .conftest import (COMMENT_TEXT,
+from news.pytest_tests.conftest import (COMMENT_TEXT,
                        NEW_COMMENT_TEXT,
                        FORM_DATA,
                        BAD_WORDS_FORM_DATA)
