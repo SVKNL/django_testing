@@ -4,11 +4,11 @@ from django.contrib.auth import get_user_model
 
 from notes.models import Note
 from notes.tests.helpers import (NOTES_DELETE_URL,
-                      NOTES_SUCCESS_URL,
-                      NOTES_EDIT_URL,
-                      Helpers,
-                      NOTES_ADD_URL,
-                      SLUG)
+                                 NOTES_SUCCESS_URL,
+                                 NOTES_EDIT_URL,
+                                 Helpers,
+                                 NOTES_ADD_URL,
+                                 SLUG)
 
 User = get_user_model()
 
