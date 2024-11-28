@@ -58,7 +58,6 @@ def test_pages_availability_for_every_user(url,
     (LAZY_EDIT, LAZY_EDIT_REDIRECT),
     (LAZY_DELETE, LAZY_DELETE_REDIRECT),
 ))
-
 def test_del_edit_redirect(client,
                            news,
                            comment,

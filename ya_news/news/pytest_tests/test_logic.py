@@ -1,7 +1,9 @@
 from http import HTTPStatus
 
 import pytest
-from pytest_django.asserts import assertRedirects, assertFormError, assertQuerysetEqual
+from pytest_django.asserts import (assertRedirects,
+                                   assertFormError,
+                                   assertQuerysetEqual)
 
 from news.forms import WARNING, BAD_WORDS
 from news.models import Comment
@@ -86,4 +88,3 @@ def test_not_author_cant_edit_comment(comment,
     response = not_author_client.post(comment_edit_url, data=FORM_DATA)
     assert response.status_code == HTTPStatus.NOT_FOUND
     assert comment.text == 'text'
-

@@ -49,7 +49,10 @@ class TestNoteCreation(Helpers):
         notes_before = Note.objects.count()
         response = self.author_client.post(NOTES_ADD_URL, data=self.form_data)
         notes_after = Note.objects.count()
-        assertFormError(response, 'form', 'slug', errors=(self.note.slug + WARNING))
+        assertFormError(response,
+                        'form',
+                        'slug',
+                        errors=(self.note.slug + WARNING))
         self.assertEqual(notes_before, notes_after)
 
     def test_author_can_delete_comment(self):
@@ -82,4 +85,3 @@ class TestNoteCreation(Helpers):
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
         notes_after = Note.objects.all()
         self.assertQuerysetEqual(notes_after, notes_before)
-
