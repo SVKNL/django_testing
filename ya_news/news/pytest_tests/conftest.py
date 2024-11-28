@@ -7,14 +7,14 @@ from django.conf import settings
 from django.test.client import Client
 
 from news.models import News, Comment
-
 from news.forms import BAD_WORDS
 
 COMMENT_TEXT = 'Comment text'
 NEW_COMMENT_TEXT = 'New comment text'
 BAD_WORDS_COMMENT = f'bla-bla {BAD_WORDS[0]}'
-FORM_DATA = {'text':NEW_COMMENT_TEXT}
+FORM_DATA = {'text': NEW_COMMENT_TEXT}
 BAD_WORDS_FORM_DATA = {'text': BAD_WORDS_COMMENT}
+
 
 @pytest.fixture()
 def client():

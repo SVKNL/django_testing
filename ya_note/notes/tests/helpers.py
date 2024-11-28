@@ -18,6 +18,7 @@ USERS_LOGOUT_URL = reverse('users:logout')
 USERS_SIGNUP_URL = reverse('users:signup')
 User = get_user_model()
 
+
 class Helpers(TestCase):
 
     @classmethod
@@ -38,5 +39,3 @@ class Helpers(TestCase):
         cls.reader_client = Client()
         cls.reader_client.force_login(cls.reader)
         cls.client = Client()
-
-

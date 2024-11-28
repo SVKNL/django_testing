@@ -1,9 +1,11 @@
 from django.contrib.auth import get_user_model
-from django.test import TestCase
-from django.urls import reverse
 
 from notes.forms import NoteForm
-from .helpers import NOTES_LIST_URL, NOTES_EDIT_URL, NOTES_ADD_URL, Helpers, SLUG
+from .helpers import (NOTES_LIST_URL,
+                      NOTES_EDIT_URL,
+                      NOTES_ADD_URL,
+                      Helpers,
+                      SLUG)
 
 User = get_user_model()
 

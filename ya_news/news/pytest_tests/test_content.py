@@ -1,7 +1,6 @@
 import pytest
-
-
 pytestmark = pytest.mark.django_db
+
 
 def test_pagination_om_main(client, multiple_news, home_url):
     response = client.get(home_url)
@@ -26,12 +25,16 @@ def test_comments_sorted(client, multiple_comments, news, news_detail_url):
     assert all_timestamps == sorted_timestamps
 
 
-def test_comment_creation_available_for_anon_user(news, client, news_detail_url):
+def test_comment_creation_available_for_anon_user(news,
+                                                  client,
+                                                  news_detail_url):
     response = client.get(news_detail_url)
     assert 'form' not in response.context
 
 
-def test_comment_creation_available_for_auth_user(news, not_author_client, news_detail_url):
+def test_comment_creation_available_for_auth_user(news,
+                                                  not_author_client,
+                                                  news_detail_url):
     response = not_author_client.get(news_detail_url)
     assert 'form' in response.context
     form_object = response.context.get('form')
