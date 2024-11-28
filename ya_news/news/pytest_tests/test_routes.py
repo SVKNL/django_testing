@@ -5,7 +5,7 @@ from pytest_django.asserts import assertRedirects
 pytestmark = pytest.mark.django_db
 
 
-@pytest.mark.parametrize('url, parametrized_client, expected_status',(
+@pytest.mark.parametrize('url, parametrized_client, expected_status', (
         (pytest.lazy_fixture('home_url'),
          pytest.lazy_fixture('client'),
          HTTPStatus.OK),
@@ -33,7 +33,7 @@ pytestmark = pytest.mark.django_db
         (pytest.lazy_fixture('comment_edit_url'),
          pytest.lazy_fixture('author_client'),
          HTTPStatus.OK),),
-                         )
+        )
 def test_pages_availability_for_every_user(url,
                                            parametrized_client,
                                            expected_status):
