@@ -66,8 +66,7 @@ def test_not_author_cant_delete_comment(not_author_client,
     response = not_author_client.delete(comment_delete_url)
     assert response.status_code == HTTPStatus.NOT_FOUND
     comments_after = set(Comment.objects.all())
-    difference = comments_after - comments_before
-    assert len(difference) == 0
+    assert comments_after == comments_before
 
 
 def test_author_can_edit_comment(comment,
