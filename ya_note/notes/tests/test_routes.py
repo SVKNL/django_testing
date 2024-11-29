@@ -47,10 +47,10 @@ class TestRoutes(Helpers):
 
     def test_redirect_for_anonymous_client(self):
         cases = [[NOTES_EDIT_URL, LOGIN_REDIRECT_EDIT_URL],
-                  [NOTES_DELETE_URL, LOGIN_REDIRECT_DELETE_URL],
-                  [NOTES_DETAIL_URL, LOGIN_REDIRECT_DETAIL_URL],
-                  [NOTES_LIST_URL, LOGIN_REDIRECT_LIST_URL],
-                  [NOTES_SUCCESS_URL, LOGIN_REDIRECT_SUCCESS_URL]]
+                 [NOTES_DELETE_URL, LOGIN_REDIRECT_DELETE_URL],
+                 [NOTES_DETAIL_URL, LOGIN_REDIRECT_DETAIL_URL],
+                 [NOTES_LIST_URL, LOGIN_REDIRECT_LIST_URL],
+                 [NOTES_SUCCESS_URL, LOGIN_REDIRECT_SUCCESS_URL]]
         for url, redirect in cases:
             with self.subTest(name=url, redirect=redirect):
                 response = self.client.get(url)
