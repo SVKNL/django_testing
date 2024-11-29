@@ -36,7 +36,6 @@ class TestNoteCreation(Helpers):
         self.assertEqual(note.author, self.author)
         self.assertEqual(note.slug, self.form_data['slug'])
 
-
     def test_empty_slug(self):
         del self.form_data['slug']
         notes_before = set(Note.objects.all())
