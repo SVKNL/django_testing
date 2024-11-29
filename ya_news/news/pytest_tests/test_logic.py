@@ -7,8 +7,9 @@ from pytest_django.asserts import (assertRedirects,
 
 from news.forms import WARNING, BAD_WORDS
 from news.models import Comment
-from news.pytest_tests.conftest import FORM_DATA
 
+BAD_WORDS_FORM_DATA = {'text': f'dfsdf {BAD_WORDS[0]}'}
+FORM_DATA = {'text': 'new text'}
 pytestmark = pytest.mark.django_db
 
 
@@ -34,7 +35,6 @@ def test_unauth_user_cant_create_comment(news, client, news_detail_url):
 
 
 def test_user_cant_use_bad_words(not_author_client, news, news_detail_url):
-    BAD_WORDS_FORM_DATA = {'text': f'dfsdf {BAD_WORDS}'}
     response = not_author_client.post(news_detail_url,
                                       data=BAD_WORDS_FORM_DATA)
     assertFormError(
@@ -63,11 +63,12 @@ def test_not_author_cant_delete_comment(not_author_client,
                                         comment,
                                         comment_delete_url,
                                         news_detail_url):
-    comments_before = Comment.objects.all()
+    comments_before = set(Comment.objects.all())
     response = not_author_client.delete(comment_delete_url)
     assert response.status_code == HTTPStatus.NOT_FOUND
-    comments_after = Comment.objects.all()
-    assertQuerysetEqual(comments_after, comments_before)
+    comments_after = set(Comment.objects.all())
+    difference = comments_after - comments_before
+    assert len(difference) == 0
 
 
 def test_author_can_edit_comment(comment,
@@ -77,8 +78,10 @@ def test_author_can_edit_comment(comment,
                                  comment_url):
     response = author_client.post(comment_edit_url, data=FORM_DATA)
     assertRedirects(response, comment_url)
-    comment = Comment.objects.get()
-    assert comment.text == FORM_DATA['text']
+    new_comment = Comment.objects.get(id=comment.id)
+    assert new_comment.text == FORM_DATA['text']
+    assert new_comment.author == comment.author
+    assert new_comment.news == comment.news
 
 
 def test_not_author_cant_edit_comment(comment,
@@ -87,4 +90,7 @@ def test_not_author_cant_edit_comment(comment,
                                       not_author_client):
     response = not_author_client.post(comment_edit_url, data=FORM_DATA)
     assert response.status_code == HTTPStatus.NOT_FOUND
-    assert comment.text == 'text'
+    new_comment = Comment.objects.get(id=comment.id)
+    assert new_comment.text == comment.text
+    assert new_comment.author == comment.author
+    assert new_comment.news == comment.news

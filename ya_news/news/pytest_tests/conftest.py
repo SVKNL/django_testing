@@ -8,8 +8,6 @@ from django.test.client import Client
 
 from news.models import News, Comment
 
-FORM_DATA = {'text': 'new text'}
-
 
 @pytest.fixture
 def login_edit_redirect(users_login, comment_edit_url):

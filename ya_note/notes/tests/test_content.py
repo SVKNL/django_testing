@@ -14,8 +14,11 @@ class TestHomePage(Helpers):
 
     def test_note_listed(self):
         response = self.author_client.get(NOTES_LIST_URL)
-        note = response.context['object_list'].get(slug=SLUG)
-        self.assertEqual(self.note, note)
+        note = response.context['object_list'].get(id=self.note.id)
+        self.assertEqual(self.note.slug, note.slug)
+        self.assertEqual(self.note.title, note.title)
+        self.assertEqual(self.note.text, note.text)
+        self.assertEqual(self.note.author, note.author)
 
     def test_note_for_author_only(self):
         response = self.reader_client.get(NOTES_LIST_URL)

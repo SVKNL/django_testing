@@ -13,7 +13,12 @@ from notes.tests.helpers import (NOTES_DELETE_URL,
                                  NOTES_HOME_URL,
                                  USERS_LOGOUT_URL,
                                  USERS_SIGNUP_URL,
-                                 redirect_login_url)
+                                 LOGIN_REDIRECT_EDIT_URL,
+                                 LOGIN_REDIRECT_DELETE_URL,
+                                 LOGIN_REDIRECT_LIST_URL,
+                                 LOGIN_REDIRECT_SUCCESS_URL,
+                                 LOGIN_REDIRECT_DETAIL_URL)
+
 
 
 User = get_user_model()
@@ -31,19 +36,24 @@ class TestRoutes(Helpers):
                  [NOTES_ADD_URL, self.author_client, HTTPStatus.OK],
                  [NOTES_EDIT_URL, self.reader_client, HTTPStatus.NOT_FOUND],
                  [NOTES_DELETE_URL, self.reader_client, HTTPStatus.NOT_FOUND],
-                 [NOTES_ADD_URL, self.reader_client, HTTPStatus.OK], ]
+                 [NOTES_ADD_URL, self.reader_client, HTTPStatus.OK],
+                 [NOTES_LIST_URL, self.client, HTTPStatus.FOUND],
+                 [NOTES_EDIT_URL, self.client, HTTPStatus.FOUND],
+                 [NOTES_DELETE_URL, self.client, HTTPStatus.FOUND],
+                 [NOTES_DETAIL_URL, self.client, HTTPStatus.FOUND],
+                 [NOTES_SUCCESS_URL, self.client, HTTPStatus.FOUND],]
         for url, client, status in cases:
             with self.subTest(name=url, client=client, status=status):
                 response = client.get(url)
                 self.assertEqual(response.status_code, status)
 
     def test_redirect_for_anonymous_client(self):
-        for url in (NOTES_EDIT_URL,
-                    NOTES_DELETE_URL,
-                    NOTES_DETAIL_URL,
-                    NOTES_LIST_URL,
-                    NOTES_SUCCESS_URL):
-            with self.subTest(name=url):
-                redirect_url = redirect_login_url(url)
+        cases =  [[NOTES_EDIT_URL, LOGIN_REDIRECT_EDIT_URL],
+                  [NOTES_DELETE_URL, LOGIN_REDIRECT_DELETE_URL],
+                  [NOTES_DETAIL_URL, LOGIN_REDIRECT_DETAIL_URL],
+                  [NOTES_LIST_URL, LOGIN_REDIRECT_LIST_URL],
+                  [NOTES_SUCCESS_URL, LOGIN_REDIRECT_SUCCESS_URL]]
+        for url, redirect in cases:
+            with self.subTest(name=url, redirect=redirect):
                 response = self.client.get(url)
-                self.assertRedirects(response, redirect_url)
+                self.assertRedirects(response, redirect)
