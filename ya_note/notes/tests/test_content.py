@@ -4,8 +4,7 @@ from notes.forms import NoteForm
 from notes.tests.helpers import (NOTES_LIST_URL,
                                  NOTES_EDIT_URL,
                                  NOTES_ADD_URL,
-                                 Helpers,
-                                 SLUG)
+                                 Helpers)
 
 User = get_user_model()
 

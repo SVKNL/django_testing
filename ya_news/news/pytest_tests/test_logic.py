@@ -2,8 +2,7 @@ from http import HTTPStatus
 
 import pytest
 from pytest_django.asserts import (assertRedirects,
-                                   assertFormError,
-                                   assertQuerysetEqual)
+                                   assertFormError)
 
 from news.forms import WARNING, BAD_WORDS
 from news.models import Comment

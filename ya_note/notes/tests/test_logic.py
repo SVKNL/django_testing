@@ -9,8 +9,7 @@ from notes.tests.helpers import (NOTES_DELETE_URL,
                                  NOTES_SUCCESS_URL,
                                  NOTES_EDIT_URL,
                                  Helpers,
-                                 NOTES_ADD_URL,
-                                 SLUG)
+                                 NOTES_ADD_URL)
 from notes.forms import WARNING
 
 User = get_user_model()
@@ -22,7 +21,7 @@ class TestNoteCreation(Helpers):
         notes_before = Note.objects.all()
         self.client.post(NOTES_ADD_URL, data=self.form_data)
         notes_after = Note.objects.all()
-        defferences_count = len(set(notes_before)-set(notes_after))
+        defferences_count = len(set(notes_before) - set(notes_after))
         self.assertEqual(defferences_count, 0)
 
     def test_user_can_create_note(self):
@@ -31,7 +30,7 @@ class TestNoteCreation(Helpers):
         self.assertRedirects(response, NOTES_SUCCESS_URL)
         note = Note.objects.last()
         notes_after = Note.objects.all()
-        len_difference = len(set(notes_after)-set(notes_before))
+        len_difference = len(set(notes_after) - set(notes_before))
         self.assertEqual(note.text, self.form_data['text'])
         self.assertEqual(note.title, self.form_data['title'])
         self.assertEqual(note.author, self.author)
@@ -91,4 +90,3 @@ class TestNoteCreation(Helpers):
         self.assertEqual(new_note.title, self.note.title)
         self.assertEqual(new_note.author, self.note.author)
         self.assertEqual(new_note.slug, self.note.slug)
-

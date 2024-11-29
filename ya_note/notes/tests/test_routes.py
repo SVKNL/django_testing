@@ -19,8 +19,6 @@ from notes.tests.helpers import (NOTES_DELETE_URL,
                                  LOGIN_REDIRECT_SUCCESS_URL,
                                  LOGIN_REDIRECT_DETAIL_URL)
 
-
-
 User = get_user_model()
 
 
@@ -41,14 +39,14 @@ class TestRoutes(Helpers):
                  [NOTES_EDIT_URL, self.client, HTTPStatus.FOUND],
                  [NOTES_DELETE_URL, self.client, HTTPStatus.FOUND],
                  [NOTES_DETAIL_URL, self.client, HTTPStatus.FOUND],
-                 [NOTES_SUCCESS_URL, self.client, HTTPStatus.FOUND],]
+                 [NOTES_SUCCESS_URL, self.client, HTTPStatus.FOUND], ]
         for url, client, status in cases:
             with self.subTest(name=url, client=client, status=status):
                 response = client.get(url)
                 self.assertEqual(response.status_code, status)
 
     def test_redirect_for_anonymous_client(self):
-        cases =  [[NOTES_EDIT_URL, LOGIN_REDIRECT_EDIT_URL],
+        cases = [[NOTES_EDIT_URL, LOGIN_REDIRECT_EDIT_URL],
                   [NOTES_DELETE_URL, LOGIN_REDIRECT_DELETE_URL],
                   [NOTES_DETAIL_URL, LOGIN_REDIRECT_DETAIL_URL],
                   [NOTES_LIST_URL, LOGIN_REDIRECT_LIST_URL],
